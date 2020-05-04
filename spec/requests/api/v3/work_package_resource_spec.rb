@@ -474,6 +474,19 @@ describe 'API v3 Work package resource',
         end
       end
 
+      context 'schedule manually' do
+        let(:schedule_manually) { true }
+        let(:params) { valid_params.merge(scheduleManually: schedule_manually) }
+
+        include_context 'patch request'
+
+        it { expect(response.status).to eq(200) }
+
+        it 'should update the scheduling mode' do
+          expect(subject.body).to be_json_eql(schedule_manually.to_json).at_path('scheduleManually')
+        end
+      end
+
       context 'start date' do
         let(:dateString) { Date.today.to_date.iso8601 }
         let(:params) { valid_params.merge(startDate: dateString) }

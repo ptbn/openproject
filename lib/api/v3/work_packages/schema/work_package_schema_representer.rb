@@ -119,6 +119,12 @@ module API
                  type: 'Formattable',
                  required: false
 
+          schema :schedule_manually,
+                 type: 'Boolean',
+                 required: false,
+                 has_default: true,
+                 name_source: ->(*) { I18n.t('attributes.work_package.schedule_manually') }
+
           schema :start_date,
                  type: 'Date',
                  required: false,
