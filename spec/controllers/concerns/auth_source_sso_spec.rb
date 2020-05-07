@@ -84,6 +84,20 @@ describe MyController, type: :controller do
       expect(failure[:back_url]).to eq "http://test.host/my/account"
       expect(failure[:ttl]).to eq 1
     end
+
+    context 'when the config is marked optional' do
+      let(:sso_config) do
+        {
+          header: header,
+          secret: secret,
+          optional: true
+        }
+      end
+
+      it "should redirect to login" do
+        expect(response).to redirect_to("/login?back_url=http%3A%2F%2Ftest.host%2Fmy%2Faccount")
+      end
+    end
   end
 
   context "with no auth source sso configured" do
